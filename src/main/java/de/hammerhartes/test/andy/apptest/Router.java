@@ -1,6 +1,7 @@
 package de.hammerhartes.test.andy.apptest;
 
 import de.hammerhartes.test.andy.apptest.annotations.Path;
+import de.hammerhartes.test.andy.apptest.methodresolver.MethodResolver;
 
 import org.glassfish.jersey.uri.UriTemplate;
 import org.jetbrains.annotations.NotNull;
@@ -9,17 +10,9 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.function.Function;
 
-import jodd.methref.Methref;
-
 import static java.lang.String.format;
 
 public class Router {
-
-    @FunctionalInterface
-    private interface GetMethod {
-
-        Method apply(String name) throws NoSuchMethodException;
-    }
 
     @FunctionalInterface
     public interface NoParam<H, R> {
@@ -34,8 +27,7 @@ public class Router {
     }
 
     public <H, R> URI linkTo(final Class<H> handlerClass, final NoParam<H, R> methodReference) {
-        final UriTemplate template = getUriTemplate(handlerClass, methodReference::apply,
-                                                    name -> handlerClass.getMethod(name));
+        final UriTemplate template = getUriTemplate(handlerClass, methodReference::apply);
         if (template.getNumberOfTemplateVariables() != 0) {
             // XXX actual message
             throw new RuntimeException("Meep meep != 0");
@@ -44,8 +36,7 @@ public class Router {
     }
 
     public <H, P, R> URI linkTo(final Class<H> handlerCass, final OneParam<H, P, R> methodReference, final P param) {
-        final UriTemplate template = getUriTemplate(handlerCass, handler -> methodReference.apply(handler, param),
-                                                    name -> handlerCass.getMethod(name, param.getClass()));
+        final UriTemplate template = getUriTemplate(handlerCass, handler -> methodReference.apply(handler, param));
         if (template.getNumberOfTemplateVariables() != 1) {
             // XXX actual message
             throw new RuntimeException("Meep meep != 1");
@@ -53,16 +44,10 @@ public class Router {
         return URI.create(template.createURI(param.toString()));
     }
 
-    private <H, R> UriTemplate getUriTemplate(final Class<H> handlerClass, final Function<H, R> resolve,
-                                              final GetMethod getMethod) {
-        final Methref<H> methref = Methref.on(handlerClass);
-        resolve.apply(methref.to());
-        final Method method;
-        try {
-            method = getMethod.apply(methref.ref());
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
+    private <H, R> UriTemplate getUriTemplate(final Class<H> handlerClass, final Function<H, R> resolve) {
+        final MethodResolver<H> methodResolver = MethodResolver.on(handlerClass);
+        resolve.apply(methodResolver.to());
+        final Method method = methodResolver.resolve();
         final String template = getUriTemplate(handlerClass, method);
         return new UriTemplate(template);
     }
