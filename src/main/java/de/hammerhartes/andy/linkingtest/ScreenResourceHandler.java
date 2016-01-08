@@ -1,10 +1,11 @@
 package de.hammerhartes.andy.linkingtest;
 
-import de.hammerhartes.andy.linkingtest.annotations.Path;
 import de.hammerhartes.andy.linkingtest.exceptions.NotFoundException;
 
 import java.util.Collections;
 import java.util.List;
+
+import javax.ws.rs.Path;
 
 // Note: Handler methods are just stubs for demonstration purposes
 @Path("/prefix")

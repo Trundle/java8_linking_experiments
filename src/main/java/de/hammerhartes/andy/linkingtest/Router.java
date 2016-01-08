@@ -1,7 +1,6 @@
 package de.hammerhartes.andy.linkingtest;
 
 import de.hammerhartes.andy.linkingtest.methodresolver.MethodResolver;
-import de.hammerhartes.andy.linkingtest.annotations.Path;
 
 import org.glassfish.jersey.uri.UriTemplate;
 import org.jetbrains.annotations.NotNull;
@@ -9,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.function.Function;
+
+import javax.ws.rs.Path;
 
 import static java.lang.String.format;
 

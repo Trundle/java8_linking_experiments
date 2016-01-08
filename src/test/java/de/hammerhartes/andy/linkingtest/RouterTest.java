@@ -1,10 +1,11 @@
 package de.hammerhartes.andy.linkingtest;
 
-import de.hammerhartes.andy.linkingtest.annotations.Path;
 
 import org.junit.Test;
 
 import java.net.URI;
+
+import javax.ws.rs.Path;
 
 import static org.junit.Assert.assertEquals;
 
