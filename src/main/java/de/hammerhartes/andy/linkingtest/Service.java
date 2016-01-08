@@ -1,4 +1,4 @@
-package de.hammerhartes.test.andy.apptest;
+package de.hammerhartes.andy.linkingtest;
 
 public class Service {
 

@@ -1,4 +1,4 @@
-package de.hammerhartes.test.andy.apptest.methodresolver;
+package de.hammerhartes.andy.linkingtest.methodresolver;
 
 import java.lang.reflect.Method;
 

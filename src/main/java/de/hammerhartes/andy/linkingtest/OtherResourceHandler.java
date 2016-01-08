@@ -1,7 +1,7 @@
-package de.hammerhartes.test.andy.apptest;
+package de.hammerhartes.andy.linkingtest;
 
-import de.hammerhartes.test.andy.apptest.annotations.Inject;
-import de.hammerhartes.test.andy.apptest.annotations.Path;
+import de.hammerhartes.andy.linkingtest.annotations.Inject;
+import de.hammerhartes.andy.linkingtest.annotations.Path;
 
 import java.net.URI;
 

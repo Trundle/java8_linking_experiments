@@ -1,4 +1,4 @@
-package de.hammerhartes.test.andy.apptest.annotations;
+package de.hammerhartes.andy.linkingtest.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

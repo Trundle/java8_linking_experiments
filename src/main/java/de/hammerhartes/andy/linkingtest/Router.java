@@ -1,7 +1,7 @@
-package de.hammerhartes.test.andy.apptest;
+package de.hammerhartes.andy.linkingtest;
 
-import de.hammerhartes.test.andy.apptest.annotations.Path;
-import de.hammerhartes.test.andy.apptest.methodresolver.MethodResolver;
+import de.hammerhartes.andy.linkingtest.methodresolver.MethodResolver;
+import de.hammerhartes.andy.linkingtest.annotations.Path;
 
 import org.glassfish.jersey.uri.UriTemplate;
 import org.jetbrains.annotations.NotNull;
