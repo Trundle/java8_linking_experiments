@@ -25,12 +25,13 @@ import static java.util.Objects.requireNonNull;
 
 public class Router implements Handler {
 
-    private final RouteScanner routeScanner = new RouteScanner();
+    private final RouteScanner routeScanner;
     private final List<Route> routes = new ArrayList<>();
     private final Chain chain;
 
     public Router(final Chain chain) {
         this.chain = requireNonNull(chain);
+        this.routeScanner = new RouteScanner(chain.getRegistry());
     }
 
     public <H> void add(final Class<H> handlerClass) {
@@ -61,10 +62,7 @@ public class Router implements Handler {
     public static <H> URI linkTo(final Class<H> handlerClass, final NoParam<H> methodReference) {
         final UriTemplate template =
                 getUriTemplate(handlerClass, handler -> methodReference.apply(handler, null));
-        if (template.getNumberOfTemplateVariables() != 0) {
-            // XXX actual message
-            throw new RuntimeException("Meep meep != 0");
-        }
+        checkTemplate(template, 1);
         return URI.create(template.createURI());
     }
 
@@ -72,11 +70,25 @@ public class Router implements Handler {
                                     final OneParam<H, P> methodReference, final P param) {
         final UriTemplate template =
                 getUriTemplate(handlerCass, handler -> methodReference.apply(handler, null, param));
-        if (template.getNumberOfTemplateVariables() != 1) {
-            // XXX actual message
-            throw new RuntimeException("Meep meep != 1");
-        }
+        checkTemplate(template, 1);
         return URI.create(template.createURI(param.toString()));
+    }
+
+    public static <H, P1, P2> URI linkTo(final Class<H> handlerCass,
+                                         final TwoParams<H, P1, P2> methodReference, final P1 param1,
+                                         final P2 param2) {
+        final UriTemplate template =
+                getUriTemplate(handlerCass, handler -> methodReference.apply(handler, null, param1, param2));
+        checkTemplate(template, 2);
+        return URI.create(template.createURI(param1.toString(), param2.toString()));
+    }
+
+    private static void checkTemplate(final UriTemplate template, final int expectedNumberOfVariables) {
+        if (template.getNumberOfTemplateVariables() != expectedNumberOfVariables) {
+            throw new RuntimeException(format("Expected template with %d arguments, found %d instead",
+                                              expectedNumberOfVariables,
+                                              template.getNumberOfTemplateVariables()));
+        }
     }
 
     private static <H> UriTemplate getUriTemplate(final Class<H> handlerClass,

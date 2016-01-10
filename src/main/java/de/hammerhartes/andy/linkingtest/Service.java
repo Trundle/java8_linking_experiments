@@ -1,10 +1,11 @@
 package de.hammerhartes.andy.linkingtest;
 
+import de.hammerhartes.andy.linkingtest.converters.IntegerParamReader;
+import de.hammerhartes.andy.linkingtest.converters.StringParamReader;
 import de.hammerhartes.andy.linkingtest.routing.Router;
 
 import org.slf4j.MDC;
 
-import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.handling.HandlerDecorator;
 import ratpack.handling.RequestId;
@@ -25,7 +26,9 @@ public class Service {
                 .registryOf(r -> r
                         .add(HandlerDecorator.prepend(REQUEST_ID_HANDLER))
                         .add(MDCInterceptor.instance())
-                        .add(new RootResourceHandler()))
+                        .add(new RootResourceHandler())
+                        .add(new IntegerParamReader())
+                        .add(new StringParamReader()))
                 .handlers(chain -> {
                     final Router router = new Router(chain);
                     router.add(RootResourceHandler.class);

@@ -13,6 +13,7 @@ import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
 
 import ratpack.handling.Handler;
+import ratpack.registry.Registry;
 
 import static de.hammerhartes.andy.linkingtest.routing.UriTemplateHelper.joinTemplates;
 import static java.lang.String.format;
@@ -25,7 +26,11 @@ import static java.util.stream.Collectors.toSet;
  */
 public class RouteScanner {
 
-    private final RouteBinder routeBinder = new RouteBinder();
+    private final RouteBinder routeBinder;
+
+    public RouteScanner(final Registry registry) {
+        this.routeBinder = new RouteBinder(registry);
+    }
 
     public <H> List<Route> findRoutes(final Class<H> handlerClass, final H handler) {
         if (!isPublic(handlerClass.getModifiers())) {

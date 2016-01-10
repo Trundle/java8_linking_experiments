@@ -14,9 +14,8 @@ creates the links (``Router#linkTo``) requires the same parameters as the actual
 handler method ``RootRessourceHandler#greet(Context, String)`` (except for the
 ``Context`` parameter, which every handler receives).
 
-The current implementation currently limits the path parameters to strings.
-Additionally, only one path parameter is supported at max. Note that those are
-limitations of the implementation, not of the general approach.
+The current implementation only supports up to two path parameters. Note that
+this is a limitation of the implementation, not of the general approach.
 
 
 License

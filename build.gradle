@@ -14,6 +14,7 @@ repositories {
 dependencies {
 
     compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    compile "com.fasterxml:classmate:${classmateVersion}"
     compile "org.glassfish.jersey.core:jersey-common:${jerseyVersion}"
     compile "org.jetbrains:annotations:${annotationsVersion}"
     compile "org.jodd:jodd-proxetta:${proxettaVersion}"

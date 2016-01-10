@@ -12,6 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 import ratpack.handling.Context;
+import ratpack.registry.Registry;
 
 import static java.util.Collections.singleton;
 import static org.junit.Assert.assertEquals;
@@ -20,7 +21,7 @@ public class RouteScannerTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    private final RouteScanner routeScanner = new RouteScanner();
+    private final RouteScanner routeScanner = new RouteScanner(Registry.empty());
 
     @Test
     public void testEmptyRoutes() {
