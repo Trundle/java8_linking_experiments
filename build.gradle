@@ -1,8 +1,10 @@
-group 'de.hammerhartes.andy.apptest'
+group 'de.hammerhartes.andy.linkingtest'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'application'
 apply plugin: 'java'
 
+mainClassName = 'de.hammerhartes.andy.linkingtest.Service'
 sourceCompatibility = 1.8
 
 repositories {
@@ -11,9 +13,11 @@ repositories {
 
 dependencies {
 
-    compile "org.jodd:jodd-proxetta:${proxettaVersion}"
+    compile "ch.qos.logback:logback-classic:${logbackVersion}"
     compile "org.glassfish.jersey.core:jersey-common:${jerseyVersion}"
     compile "org.jetbrains:annotations:${annotationsVersion}"
+    compile "org.jodd:jodd-proxetta:${proxettaVersion}"
+    compile "io.ratpack:ratpack-core:${ratpackVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }
