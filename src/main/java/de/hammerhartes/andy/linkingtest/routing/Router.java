@@ -62,7 +62,7 @@ public class Router implements Handler {
     public static <H> URI linkTo(final Class<H> handlerClass, final NoParam<H> methodReference) {
         final UriTemplate template =
                 getUriTemplate(handlerClass, handler -> methodReference.apply(handler, null));
-        checkTemplate(template, 1);
+        checkTemplate(template, 0);
         return URI.create(template.createURI());
     }
 
