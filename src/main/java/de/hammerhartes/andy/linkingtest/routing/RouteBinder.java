@@ -98,15 +98,5 @@ public class RouteBinder {
                            firstParameter.getType().getSimpleName());
             throw new IllegalArgumentException(message);
         }
-        for (int i = 1; i < parameters.length; ++i) {
-            final Parameter parameter = parameters[1];
-            if (!parameter.getType().isAssignableFrom(String.class)) {
-                final String message =
-                        format("Only String path parameters are supported for now "
-                               + "(found parameter of type %s)",
-                               parameter.getType().getSimpleName());
-                throw new IllegalArgumentException(message);
-            }
-        }
     }
 }
